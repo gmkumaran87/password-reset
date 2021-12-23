@@ -65,7 +65,7 @@ const Login = () => {
           </button>
           <div className="login-action">
             <p className="blue">
-              <NavLink className="blue" to="/forget-password">
+              <NavLink className="blue" to="/forgot-password">
                 Forget Password?
               </NavLink>
             </p>

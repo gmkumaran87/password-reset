@@ -12,7 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />}></Route>
           <Route path="/register" element={<Register />} />
-          <Route path="/forget-password" element={<ForgotPassword />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes>
       </Main>
     </Router>
