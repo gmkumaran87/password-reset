@@ -1,0 +1,7 @@
+.main-center {
+    margin-top: 2rem;
+    width: 100vw;
+    background-color: var(--clr-white);
+    flex: 2 0 0;
+    padding: 1rem .5rem;
+}
