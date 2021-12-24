@@ -1,6 +1,6 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Site created using this app is [Password Reset] (https://password-reset-gmkumaran87.netlify.app).
 
 ## Available Scripts
 
