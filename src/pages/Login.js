@@ -70,9 +70,9 @@ const Login = () => {
               </NavLink>
             </p>
             <p>
-              Don't have an account.?{" "}
+              Don't have an account.?
               <NavLink className="blue" to="/register">
-                Sing Up
+                &nbsp;&nbsp;Sing Up
               </NavLink>
             </p>
           </div>
