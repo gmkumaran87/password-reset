@@ -3,6 +3,7 @@ import { Form, useField, Formik } from "formik";
 import * as Yup from "yup";
 import "./Form.css";
 import { NavLink } from "react-router-dom";
+import { useGlobalContext } from "../context/Context";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -19,6 +20,8 @@ const MyTextInput = ({ label, ...props }) => {
 };
 
 const Register = () => {
+  const { registerUser } = useGlobalContext();
+
   const initialState = {
     firstname: "",
     lastname: "",
@@ -45,7 +48,9 @@ const Register = () => {
         })}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setTimeout(() => {
-            alert(values);
+            // Sending the User values to store in DB
+            registerUser(values);
+
             setSubmitting(false);
           }, 4000);
           resetForm({ values: "" });
