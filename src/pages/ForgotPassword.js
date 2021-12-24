@@ -2,6 +2,7 @@ import React from "react";
 import { Formik, Form, useField } from "formik";
 import * as Yup from "yup";
 import "./Form.css";
+import { useGlobalContext } from "../context/Context";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -18,6 +19,7 @@ const MyTextInput = ({ label, ...props }) => {
 };
 
 const ForgotPassword = () => {
+  const { forgotPassword } = useGlobalContext();
   const initialState = {
     email: "",
   };
@@ -31,7 +33,8 @@ const ForgotPassword = () => {
         })}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
-            alert(values);
+            console.log(values);
+            forgotPassword(values);
             setSubmitting(false);
           }, 400);
         }}
