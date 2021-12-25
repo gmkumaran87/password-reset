@@ -20,7 +20,7 @@ const MyTextInput = ({ label, ...props }) => {
 };
 
 const Register = () => {
-  const { registerUser } = useGlobalContext();
+  const { registerUser, register } = useGlobalContext();
 
   const initialState = {
     firstname: "",
@@ -31,6 +31,7 @@ const Register = () => {
 
   return (
     <>
+      {register.isError && <p className="error-msg">{register.errorMsg}</p>}
       <h2>Create an Account</h2>
       <Formik
         initialValues={initialState}
@@ -52,9 +53,8 @@ const Register = () => {
             registerUser(values);
 
             setSubmitting(false);
-          }, 4000);
+          }, 400);
           resetForm({ values: "" });
-          console.log("After updation/creation");
         }}
       >
         <Form className="form login-form">

@@ -19,12 +19,17 @@ const MyTextInput = ({ label, ...props }) => {
 };
 
 const ForgotPassword = () => {
-  const { forgotPassword } = useGlobalContext();
+  const { forgotPassword, passwordForgot, activationMsg } = useGlobalContext();
+
   const initialState = {
     email: "",
   };
   return (
     <>
+      {passwordForgot.isError && (
+        <p className="error-msg">{passwordForgot.errorMsg}</p>
+      )}
+      {activationMsg && <p className="success-msg">{activationMsg}</p>}
       <h2>Forgot Password</h2>
       <Formik
         initialValues={initialState}
@@ -33,7 +38,6 @@ const ForgotPassword = () => {
         })}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
-            console.log(values);
             forgotPassword(values);
             setSubmitting(false);
           }, 400);

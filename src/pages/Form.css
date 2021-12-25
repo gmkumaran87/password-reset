@@ -69,6 +69,24 @@ input {
     font-weight: 400;
 }
 
+.error-msg {
+    color: red;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.success-msg {
+    color: green;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
 @media(min-width: 768px) {
     .form {
         max-width: 600px;
