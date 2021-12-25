@@ -19,8 +19,7 @@ const initialState = {
   activationMsg: "",
 };
 
-// const URL = "https://password-reset-gmkumaran87.herokuapp.com/api/v1/register";
-const URL = "http://localhost:5000/api/v1/register";
+const URL = "https://password-reset-gmkumaran87.herokuapp.com/api/v1/register";
 
 const Context = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
