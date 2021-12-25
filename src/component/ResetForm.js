@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import "../pages/Form.css";
 import { useGlobalContext } from "../context/Context";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -21,9 +22,10 @@ const MyTextInput = ({ label, ...props }) => {
 
 const ResetForm = () => {
   const params = useParams();
+  const navigate = useNavigate();
 
   const { userId, randomStr } = params;
-  const { resetPassword } = useGlobalContext();
+  const { updatePassword } = useGlobalContext();
 
   const state = {
     newPassword: "",
@@ -49,14 +51,14 @@ const ResetForm = () => {
           setTimeout(() => {
             const userObj = {
               newPassword: values.newPassword,
-              confirmPasword: values.confirmPassword,
+              confirmPassword: values.confirmPassword,
               userId,
               randomStr,
             };
             // Sending the User values to store in DB
-            resetPassword(userObj);
-
+            updatePassword(userObj);
             setSubmitting(false);
+            navigate("/");
           }, 400);
           resetForm("");
         }}

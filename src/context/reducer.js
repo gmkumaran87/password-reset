@@ -31,6 +31,8 @@ const reducer = (state, action) => {
                 ...state.passwordReset,
                 isError: action.payload.isError,
                 isLoading: action.payload.isLoading,
+                errorMsg: action.payload.errorMsg,
+                isSuccess: action.payload.isSuccess,
             };
             return {...state, passwordReset: emailStatus };
         default:

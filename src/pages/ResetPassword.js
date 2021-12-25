@@ -11,17 +11,20 @@ const ResetPassword = () => {
   const params = useParams();
 
   const { userId, randomStr } = params;
-  const { passwordReset, validateReset } = useGlobalContext();
+  const { passwordReset, emailValidation } = useGlobalContext();
 
   useEffect(() => {
-    validateReset(userId, randomStr);
+    emailValidation(userId, randomStr);
   }, []);
   return (
     <>
       {passwordReset.isLoading && (
         <p className="page-load">Please wait while Page is loading...!</p>
       )}
-      <ResetForm />
+      {passwordReset.isError && (
+        <p className="page-load error">{passwordReset.errorMsg}</p>
+      )}
+      {passwordReset.isSuccess && <ResetForm />}
     </>
   );
 };

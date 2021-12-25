@@ -10,11 +10,17 @@ const initialState = {
   user: {},
   register: { isLoading: false, isError: false, errorMsg: "" },
   passwordForgot: { isLoading: false, isError: false, errorMsg: "" },
-  passwordReset: { isLoading: false, isError: false, errorMsg: "" },
+  passwordReset: {
+    isLoading: false,
+    isError: false,
+    errorMsg: "",
+    isSuccess: false,
+  },
   activationMsg: "",
 };
 
-const URL = "https://password-reset-gmkumaran87.herokuapp.com/api/v1/register";
+// const URL = "https://password-reset-gmkumaran87.herokuapp.com/api/v1/register";
+const URL = "http://localhost:5000/api/v1/register";
 
 const Context = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -33,44 +39,52 @@ const Context = ({ children }) => {
   };
 
   const forgotPassword = async (email) => {
-    console.log("Entered email", email);
     try {
       const result = await axios.post(`${URL}/forgot-password/`, email);
-      console.log(result);
+
       if (result.status === 200) {
         dispatch({ type: "EMAIL_SENT", payload: result.data.msg });
       }
     } catch (error) {
-      console.log("In Forgot password error", error);
       dispatch({ type: "ERROR", payload: error.response.data.msg });
     }
   };
 
-  const resetPassword = async (userObj) => {
-    console.log("Entered Password", userObj);
-
+  const updatePassword = async (userObj) => {
     try {
-      const result = await axios.post(`${URL}/reset-password/`, userObj);
+      const result = await axios.post(`${URL}/update-password/`, userObj);
+
       if (result.status === 200) {
+        return;
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.response);
     }
   };
 
-  const validateReset = async (userId, randomStr) => {
-    const validateObj = { userId, randomStr };
+  const emailValidation = async (userId, randomStr) => {
     try {
-      const res = await axios.post(`${URL}/reset-password`, validateObj);
+      const res = await axios.post(
+        `${URL}/email-validation/${userId}/${randomStr}`
+      );
+
       if (res.status === 200) {
         dispatch({
           type: "USER_EMAIL_VALIDATE",
-          payload: { isLoading: false, isError: true },
+          payload: { isLoading: false, isError: false, isSuccess: true },
         });
       }
     } catch (error) {
-      dispatch({ type: "USER_EMAIL_VALIDATE", payload: false });
-      console.log(error);
+      dispatch({
+        type: "USER_EMAIL_VALIDATE",
+        payload: {
+          isLoading: false,
+          isError: true,
+          errorMsg: error.response.data.msg,
+          isSuccess: false,
+        },
+      });
+      console.log(error.response);
     }
   };
 
@@ -86,8 +100,8 @@ const Context = ({ children }) => {
         ...state,
         registerUser,
         forgotPassword,
-        resetPassword,
-        validateReset,
+        updatePassword,
+        emailValidation,
       }}
     >
       {children}
