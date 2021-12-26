@@ -1,7 +1,6 @@
 import React, { useContext, useReducer } from "react";
 import reducer from "./reducer";
 import axios from "axios";
-import { useEffect } from "react/cjs/react.development";
 
 //Creating Context
 const AuthContext = React.createContext();
@@ -64,7 +63,11 @@ const Context = ({ children }) => {
   const emailValidation = async (userId, randomStr) => {
     try {
       const res = await axios.post(
-        `${URL}/email-validation/${userId}/${randomStr}`
+        `${URL}/email-validation/${userId}/${randomStr}`,
+        {},
+        {
+          timeout: 5000,
+        }
       );
 
       if (res.status === 200) {
@@ -88,11 +91,14 @@ const Context = ({ children }) => {
   };
 
   // Setting the Password reset form page
-  useEffect(() => {
+  /*useEffect(() => {
     console.log("Restting the Page load");
     dispatch({ type: "PASSWORD_RESET", payload: true });
-  }, []);
+  }, []);*/
 
+  const setResetLoading = () => {
+    dispatch({ type: "PASSWORD_RESET", payload: true });
+  };
   return (
     <AuthContext.Provider
       value={{
@@ -101,6 +107,7 @@ const Context = ({ children }) => {
         forgotPassword,
         updatePassword,
         emailValidation,
+        setResetLoading,
       }}
     >
       {children}

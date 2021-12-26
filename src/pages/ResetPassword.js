@@ -11,11 +11,15 @@ const ResetPassword = () => {
   const params = useParams();
 
   const { userId, randomStr } = params;
-  const { passwordReset, emailValidation } = useGlobalContext();
+  const { passwordReset, emailValidation, setResetLoading } =
+    useGlobalContext();
 
   useEffect(() => {
+    setResetLoading();
     emailValidation(userId, randomStr);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <>
       {passwordReset.isLoading && (
